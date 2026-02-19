@@ -5,6 +5,20 @@
   "source": {
     "type": "git",
     "url": "https://github.com/lowRISC/opentitan",
-    "commit": "304378684dfcf5be73bbd14faffa71790793d8c6"
-  }
+    "commit": "304378684dfcf5be73bbd14faffa71790793d8c6",
+    "rtl_path": "rtl",
+    "rtl_files": [
+      "rtl/csrng.sv",
+      "rtl/csrng_block_encrypt.sv",
+      "rtl/csrng_cmd_stage.sv",
+      "rtl/csrng_core.sv",
+      "rtl/csrng_ctr_drbg.sv",
+      "rtl/csrng_main_sm.sv",
+      "rtl/csrng_pkg.sv",
+      "rtl/csrng_reg_pkg.sv",
+      "rtl/csrng_reg_top.sv",
+      "rtl/csrng_state_db.sv"
+    ]
+  },
+  "updated": "2026-02-19T06:03:45Z"
 }
