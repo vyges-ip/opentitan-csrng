@@ -1,108 +1,28 @@
 {
-  "name": "opentitan-csrng",
-  "version": "0.1.0",
-  "license": "Apache-2.0",
-  "source": {
-    "type": "git",
-    "url": "https://github.com/lowRISC/opentitan",
-    "commit": "304378684dfcf5be73bbd14faffa71790793d8c6",
-    "ip_path": "hw/ip/csrng",
-    "private": false,
-    "rtl_path": "rtl",
-    "rtl_files": [
-      "rtl/csrng.sv",
-      "rtl/csrng_block_encrypt.sv",
-      "rtl/csrng_cmd_stage.sv",
-      "rtl/csrng_core.sv",
-      "rtl/csrng_ctr_drbg.sv",
-      "rtl/csrng_main_sm.sv",
-      "rtl/csrng_pkg.sv",
-      "rtl/csrng_reg_pkg.sv",
-      "rtl/csrng_reg_top.sv",
-      "rtl/csrng_state_db.sv"
-    ]
-  },
-  "updated": "2026-03-24T02:12:10Z",
   "$schema": "https://vyges.com/schema/v1/vyges-metadata.schema.json",
   "x-version": "1.0.0",
-  "description": "Csrng. OpenTitan IP block from hw/ip/csrng.",
-  "template": "opentitan-ip-template@1.0.0",
-  "target": [
-    "fpga",
-    "asic"
-  ],
-  "design_type": [
-    "digital"
-  ],
-  "maturity": "prototype",
+  "name": "opentitan-csrng",
+  "version": "0.1.0",
+  "description": "Cryptographically Secure Random Number Generator (NIST SP 800-90A CTR_DRBG) with hardware application interfaces, entropy source feedback, and production/non-production key derivation. TileLink-UL slave. Extracted from OpenTitan (lowRISC).",
+  "license": "Apache-2.0",
+  "maturity": "production",
+  "target": ["asic", "fpga"],
+  "design_type": ["digital"],
   "created": "2026-02-19T06:12:02Z",
+  "updated": "2026-03-27T19:30:00Z",
+  "source": {"type": "git", "url": "https://github.com/lowRISC/opentitan", "commit": "304378684dfcf5be73bbd14faffa71790793d8c6", "ip_path": "hw/ip/csrng", "private": false, "rtl_path": "rtl"},
+  "maintainers": [{"name": "Vyges", "email": "team@vyges.com", "github": "vyges"}],
   "interfaces": [
-    {
-      "type": "bus",
-      "direction": "input",
-      "protocol": "TL-UL",
-      "width": 32,
-      "description": "TL-UL host interface for register access",
-      "signals": [
-        {
-          "name": "clk_i",
-          "direction": "input",
-          "type": "clock",
-          "width": 1,
-          "description": "System clock"
-        },
-        {
-          "name": "rst_ni",
-          "direction": "input",
-          "type": "reset",
-          "width": 1,
-          "active_level": "low",
-          "description": "Active-low synchronous reset"
-        },
-        {
-          "name": "tl_i",
-          "direction": "input",
-          "type": "data",
-          "width": 1,
-          "description": "TL-UL host-to-device (tl_h2d_t struct) \u2014 connect to xbar slave port"
-        },
-        {
-          "name": "tl_o",
-          "direction": "output",
-          "type": "data",
-          "width": 1,
-          "description": "TL-UL device-to-host (tl_d2h_t struct) \u2014 connect to xbar slave port"
-        }
-      ]
-    },
-    {
-      "type": "bus",
-      "direction": "output",
-      "protocol": "CSRNG",
-      "description": "Cryptographic random number output"
-    }
+    {"type": "bus", "direction": "slave", "protocol": "TL-UL", "port": "tl", "width": 32, "description": "TileLink-UL slave. 24 registers."}
   ],
-  "categories": {
-    "primary": "crypto",
-    "secondary": [
-      "random",
-      "csrng"
-    ],
-    "tags": [
-      "random",
-      "csrng",
-      "opentitan",
-      "lowrisc-opentitan"
-    ]
-  },
-  "community": {
-    "issues": "https://github.com/vyges-ip/opentitan-csrng/issues",
-    "contributions": "https://github.com/vyges-ip/opentitan-csrng/pulls"
-  },
-  "branding": {
-    "provider": "Vyges IP Catalog",
-    "logo": "https://vyges.com/assets/logo.svg",
-    "website": "https://github.com/vyges-ip/opentitan-csrng",
-    "usage": "Use of the logo is permitted for attribution or compatibility references only."
-  }
+  "architecture": {"type": "peripheral", "features": ["NIST SP 800-90A CTR_DRBG compliant", "AES-based internal block cipher (SBoxImpl configurable)", "Hardware application command interfaces (csrng_cmd_i/o)", "Entropy source feedback from entropy_src", "Production and non-production key diversification", "4 interrupts: cmd_req_done, entropy_req, hw_inst_exc, fatal_err", "24 registers", "Bus integrity alert"]},
+  "dependencies": [{"name": "opentitan-prim", "type": "library"}, {"name": "opentitan-tlul", "type": "bus"}],
+  "documentation": {"upstream": "https://opentitan.org/book/hw/ip/csrng/"},
+  "artifacts": {"total_rtl_lines": 5381},
+  "categories": {"primary": "security", "secondary": ["crypto"], "tags": ["csrng", "opentitan", "tl-ul", "crypto"]},
+  "trust": {"verification_level": "silicon_proven", "tapeout_count": 3, "fpga_validated": false, "maintained": true, "last_activity": "2026-03-27"},
+  "asic": {"flavor": "digital", "technology": ["sky130A"]},
+  "fpga": {"toolchain": ["Vivado", "Yosys"]},
+  "keywords": ["csrng", "opentitan", "crypto", "tl-ul"],
+  "meta": {"template": {"generator": "manual (gold-standard pass 2026-03-27)"}, "schema": {"version": "1.0.0"}}
 }
